@@ -104,10 +104,39 @@ import numpy as np
 import pandas as pd
 import inspect
 import warnings
+from dataclasses import dataclass, field
 from typing import Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:  # pragma: no cover
     from typing_extensions import Self
+
+
+@dataclass
+class _CleanLearningConfig:
+    clf: object
+    seed: Optional[int]
+    cv_n_folds: int
+    converge_latent_estimates: bool
+    pulearning: Optional[int]
+    find_label_issues_kwargs: dict = field(default_factory=dict)
+    label_quality_scores_kwargs: dict = field(default_factory=dict)
+    verbose: bool = False
+    low_memory: bool = False
+
+
+@dataclass
+class _CleanLearningState:
+    label_issues_df: Optional[pd.DataFrame] = None
+    label_issues_mask: Optional[np.ndarray] = None
+    sample_weight: Optional[np.ndarray] = None
+    confident_joint: Optional[np.ndarray] = None
+    py: Optional[np.ndarray] = None
+    ps: Optional[np.ndarray] = None
+    num_classes: Optional[int] = None
+    noise_matrix: Optional[np.ndarray] = None
+    inverse_noise_matrix: Optional[np.ndarray] = None
+    clf_kwargs: Optional[dict] = None
+    clf_final_kwargs: Optional[dict] = None
 
 from cleanlab.rank import get_label_quality_scores
 from cleanlab import filter
@@ -241,26 +270,178 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
         if seed is not None:
             np.random.seed(seed=seed)
 
-        self.clf = clf
-        self.seed = seed
-        self.cv_n_folds = cv_n_folds
-        self.converge_latent_estimates = converge_latent_estimates
-        self.pulearning = pulearning
-        self.find_label_issues_kwargs = find_label_issues_kwargs
-        self.label_quality_scores_kwargs = label_quality_scores_kwargs
-        self.verbose = verbose
-        self.label_issues_df = None
-        self.label_issues_mask = None
-        self.sample_weight = None
-        self.confident_joint = None
-        self.py = None
-        self.ps = None
-        self.num_classes = None
-        self.noise_matrix = None
-        self.inverse_noise_matrix = None
-        self.clf_kwargs = None
-        self.clf_final_kwargs = None
-        self.low_memory = low_memory
+        self._config = _CleanLearningConfig(
+            clf=clf,
+            seed=seed,
+            cv_n_folds=cv_n_folds,
+            converge_latent_estimates=converge_latent_estimates,
+            pulearning=pulearning,
+            find_label_issues_kwargs=find_label_issues_kwargs,
+            label_quality_scores_kwargs=label_quality_scores_kwargs,
+            verbose=verbose,
+            low_memory=low_memory,
+        )
+        self._state = _CleanLearningState()
+
+    @property
+    def clf(self):
+        return self._config.clf
+
+    @clf.setter
+    def clf(self, value):
+        self._config.clf = value
+
+    @property
+    def seed(self):
+        return self._config.seed
+
+    @seed.setter
+    def seed(self, value):
+        self._config.seed = value
+
+    @property
+    def cv_n_folds(self):
+        return self._config.cv_n_folds
+
+    @cv_n_folds.setter
+    def cv_n_folds(self, value):
+        self._config.cv_n_folds = value
+
+    @property
+    def converge_latent_estimates(self):
+        return self._config.converge_latent_estimates
+
+    @converge_latent_estimates.setter
+    def converge_latent_estimates(self, value):
+        self._config.converge_latent_estimates = value
+
+    @property
+    def pulearning(self):
+        return self._config.pulearning
+
+    @pulearning.setter
+    def pulearning(self, value):
+        self._config.pulearning = value
+
+    @property
+    def find_label_issues_kwargs(self):
+        return self._config.find_label_issues_kwargs
+
+    @find_label_issues_kwargs.setter
+    def find_label_issues_kwargs(self, value):
+        self._config.find_label_issues_kwargs = value
+
+    @property
+    def label_quality_scores_kwargs(self):
+        return self._config.label_quality_scores_kwargs
+
+    @label_quality_scores_kwargs.setter
+    def label_quality_scores_kwargs(self, value):
+        self._config.label_quality_scores_kwargs = value
+
+    @property
+    def verbose(self):
+        return self._config.verbose
+
+    @verbose.setter
+    def verbose(self, value):
+        self._config.verbose = value
+
+    @property
+    def low_memory(self):
+        return self._config.low_memory
+
+    @low_memory.setter
+    def low_memory(self, value):
+        self._config.low_memory = value
+
+    @property
+    def label_issues_df(self):
+        return self._state.label_issues_df
+
+    @label_issues_df.setter
+    def label_issues_df(self, value):
+        self._state.label_issues_df = value
+
+    @property
+    def label_issues_mask(self):
+        return self._state.label_issues_mask
+
+    @label_issues_mask.setter
+    def label_issues_mask(self, value):
+        self._state.label_issues_mask = value
+
+    @property
+    def sample_weight(self):
+        return self._state.sample_weight
+
+    @sample_weight.setter
+    def sample_weight(self, value):
+        self._state.sample_weight = value
+
+    @property
+    def confident_joint(self):
+        return self._state.confident_joint
+
+    @confident_joint.setter
+    def confident_joint(self, value):
+        self._state.confident_joint = value
+
+    @property
+    def py(self):
+        return self._state.py
+
+    @py.setter
+    def py(self, value):
+        self._state.py = value
+
+    @property
+    def ps(self):
+        return self._state.ps
+
+    @ps.setter
+    def ps(self, value):
+        self._state.ps = value
+
+    @property
+    def num_classes(self):
+        return self._state.num_classes
+
+    @num_classes.setter
+    def num_classes(self, value):
+        self._state.num_classes = value
+
+    @property
+    def noise_matrix(self):
+        return self._state.noise_matrix
+
+    @noise_matrix.setter
+    def noise_matrix(self, value):
+        self._state.noise_matrix = value
+
+    @property
+    def inverse_noise_matrix(self):
+        return self._state.inverse_noise_matrix
+
+    @inverse_noise_matrix.setter
+    def inverse_noise_matrix(self, value):
+        self._state.inverse_noise_matrix = value
+
+    @property
+    def clf_kwargs(self):
+        return self._state.clf_kwargs
+
+    @clf_kwargs.setter
+    def clf_kwargs(self, value):
+        self._state.clf_kwargs = value
+
+    @property
+    def clf_final_kwargs(self):
+        return self._state.clf_final_kwargs
+
+    @clf_final_kwargs.setter
+    def clf_final_kwargs(self, value):
+        self._state.clf_final_kwargs = value
 
     def _validate_fit_args(self, X, labels, y, sample_weight, clf_kwargs, clf_final_kwargs):
         """Validate and normalize core inputs for ``fit()``."""
@@ -274,7 +455,7 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
         if self._default_clf:
             X = force_two_dimensions(X)
 
-        self.clf_final_kwargs = {**clf_kwargs, **clf_final_kwargs}
+        self._state.clf_final_kwargs = {**clf_kwargs, **clf_final_kwargs}
 
         if "sample_weight" in clf_kwargs:
             raise ValueError(
@@ -328,7 +509,7 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
                 label_matrix = noise_matrix
             else:
                 label_matrix = inverse_noise_matrix
-            self.num_classes = get_num_classes(labels, pred_probs, label_matrix)
+            self._state.num_classes = get_num_classes(labels, pred_probs, label_matrix)
         if self.verbose:
             print("Using provided label_issues instead of finding label issues.")
             if self.label_issues_df is not None:
@@ -341,52 +522,52 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
     def _fit_final_model(self, X, labels, label_issues, sample_weight, pred_probs):
         """Prune label issues, prepare weights, and fit the wrapped classifier."""
 
-        self.label_issues_df = self._process_label_issues_arg(label_issues, labels)
+        self._state.label_issues_df = self._process_label_issues_arg(label_issues, labels)
 
-        if "label_quality" not in self.label_issues_df.columns and pred_probs is not None:
+        if "label_quality" not in self._state.label_issues_df.columns and pred_probs is not None:
             if self.verbose:
                 print("Computing label quality scores based on given pred_probs ...")
-            self.label_issues_df["label_quality"] = get_label_quality_scores(
+            self._state.label_issues_df["label_quality"] = get_label_quality_scores(
                 labels, pred_probs, **self.label_quality_scores_kwargs
             )
 
-        self.label_issues_mask = self.label_issues_df["is_label_issue"].to_numpy()
-        x_mask = np.invert(self.label_issues_mask)
+        self._state.label_issues_mask = self._state.label_issues_df["is_label_issue"].to_numpy()
+        x_mask = np.invert(self._state.label_issues_mask)
         x_cleaned, labels_cleaned = subset_X_y(X, labels, x_mask)
         if self.verbose:
-            print(f"Pruning {np.sum(self.label_issues_mask)} examples with label issues ...")
+            print(f"Pruning {np.sum(self._state.label_issues_mask)} examples with label issues ...")
             print(f"Remaining clean data has {len(labels_cleaned)} examples.")
 
         if sample_weight is None:
             if (
                 "sample_weight" in inspect.signature(self.clf.fit).parameters
-                and "sample_weight" not in self.clf_final_kwargs
-                and self.noise_matrix is not None
+                and "sample_weight" not in self._state.clf_final_kwargs
+                and self._state.noise_matrix is not None
             ):
                 if self.verbose:
                     print(
                         "Assigning sample weights for final training based on estimated label quality."
                     )
                 sample_weight_auto = np.ones(np.shape(labels_cleaned))
-                for k in range(self.num_classes):
-                    sample_weight_k = 1.0 / max(self.noise_matrix[k][k], 1e-3)
+                for k in range(self._state.num_classes):
+                    sample_weight_k = 1.0 / max(self._state.noise_matrix[k][k], 1e-3)
                     sample_weight_auto[labels_cleaned == k] = sample_weight_k
 
                 sample_weight_expanded = np.zeros(len(labels))
                 sample_weight_expanded[x_mask] = sample_weight_auto
-                self.label_issues_df["sample_weight"] = sample_weight_expanded
-                self.sample_weight = self.label_issues_df["sample_weight"]
-                self.clf_final_kwargs["sample_weight"] = sample_weight_auto
+                self._state.label_issues_df["sample_weight"] = sample_weight_expanded
+                self._state.sample_weight = self._state.label_issues_df["sample_weight"]
+                self._state.clf_final_kwargs["sample_weight"] = sample_weight_auto
                 if self.verbose:
                     print("Fitting final model on the clean data ...")
             else:
                 if self.verbose:
-                    if "sample_weight" in self.clf_final_kwargs:
+                    if "sample_weight" in self._state.clf_final_kwargs:
                         print("Fitting final model on the clean data with custom sample_weight ...")
                     else:
                         if (
                             "sample_weight" in inspect.signature(self.clf.fit).parameters
-                            and self.noise_matrix is None
+                            and self._state.noise_matrix is None
                         ):
                             print(
                                 "Cannot utilize sample weights for final training! "
@@ -395,18 +576,18 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
                                 "To use sample weights, you need to either provide the noise_matrix or have previously called self.find_label_issues() instead of filter.find_label_issues() which computes them for you."
                             )
                         print("Fitting final model on the clean data ...")
-        elif sample_weight is not None and "sample_weight" not in self.clf_final_kwargs:
-            self.clf_final_kwargs["sample_weight"] = sample_weight[x_mask]
+        elif sample_weight is not None and "sample_weight" not in self._state.clf_final_kwargs:
+            self._state.clf_final_kwargs["sample_weight"] = sample_weight[x_mask]
             if self.verbose:
                 print("Fitting final model on the clean data with custom sample_weight ...")
         else:  # pragma: no cover
             if self.verbose:
-                if "sample_weight" in self.clf_final_kwargs:
+                if "sample_weight" in self._state.clf_final_kwargs:
                     print("Fitting final model on the clean data with custom sample_weight ...")
                 else:
                     print("Fitting final model on the clean data ...")
 
-        self.clf.fit(x_cleaned, labels_cleaned, **self.clf_final_kwargs)
+        self._config.clf.fit(x_cleaned, labels_cleaned, **self._state.clf_final_kwargs)
 
     def fit(
         self,
@@ -766,7 +947,7 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
         X, labels = self._prepare_find_label_issues_inputs(
             X, labels, pred_probs, noise_matrix, inverse_noise_matrix
         )
-        self.clf_kwargs = clf_kwargs
+        self._state.clf_kwargs = clf_kwargs
 
         if self.low_memory:
             label_issues_mask, pred_probs = self._find_label_issues_low_memory(
@@ -820,21 +1001,21 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
         (e.g. you cannot call ``self.fit()`` anymore).
         """
 
-        if self.label_issues_df is None and self.verbose:
+        if self._state.label_issues_df is None and self.verbose:
             print("self.label_issues_df is already empty")  # pragma: no cover
-        self.label_issues_df = None
-        self.sample_weight = None
-        self.label_issues_mask = None
-        self.find_label_issues_kwargs = None
-        self.label_quality_scores_kwargs = None
-        self.confident_joint = None
-        self.py = None
-        self.ps = None
-        self.num_classes = None
-        self.noise_matrix = None
-        self.inverse_noise_matrix = None
-        self.clf_kwargs = None
-        self.clf_final_kwargs = None
+        self._state.label_issues_df = None
+        self._state.sample_weight = None
+        self._state.label_issues_mask = None
+        self._config.find_label_issues_kwargs = None
+        self._config.label_quality_scores_kwargs = None
+        self._state.confident_joint = None
+        self._state.py = None
+        self._state.ps = None
+        self._state.num_classes = None
+        self._state.noise_matrix = None
+        self._state.inverse_noise_matrix = None
+        self._state.clf_kwargs = None
+        self._state.clf_final_kwargs = None
         if self.verbose:
             print("Deleted non-sklearn attributes such as label_issues_df to save space.")
 
@@ -862,8 +1043,8 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
                 )
         # CleanLearning will use this to compute the noise_matrix and inverse_noise_matrix
         if "confident_joint" in find_label_issues_kwargs:
-            self.confident_joint = find_label_issues_kwargs["confident_joint"]
-        self.find_label_issues_kwargs = find_label_issues_kwargs
+            self._state.confident_joint = find_label_issues_kwargs["confident_joint"]
+        self._config.find_label_issues_kwargs = find_label_issues_kwargs
 
     def _prepare_find_label_issues_inputs(
         self, X, labels, pred_probs, noise_matrix, inverse_noise_matrix
@@ -882,13 +1063,13 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
         if self._default_clf:
             X = force_two_dimensions(X)
         label_matrix = noise_matrix if noise_matrix is not None else inverse_noise_matrix
-        self.num_classes = get_num_classes(labels, pred_probs, label_matrix)
-        if (pred_probs is None) and (len(labels) / self.num_classes < self.cv_n_folds):
+        self._state.num_classes = get_num_classes(labels, pred_probs, label_matrix)
+        if (pred_probs is None) and (len(labels) / self._state.num_classes < self.cv_n_folds):
             raise ValueError(
                 "Need more data from each class for cross-validation. "
                 "Try decreasing cv_n_folds (eg. to 2 or 3) in CleanLearning()"
             )
-        self.ps = value_counts(labels) / float(len(labels))
+        self._state.ps = value_counts(labels) / float(len(labels))
         return X, labels
 
     def _find_label_issues_low_memory(
@@ -949,28 +1130,28 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
 
         self._process_label_issues_kwargs(self.find_label_issues_kwargs)
         if self.confident_joint is not None:
-            self.py, noise_matrix, inverse_noise_matrix = estimate_latent(
+            self._state.py, noise_matrix, inverse_noise_matrix = estimate_latent(
                 confident_joint=self.confident_joint,
                 labels=labels,
             )
 
         if noise_matrix is not None:
-            self.noise_matrix = noise_matrix
+            self._state.noise_matrix = noise_matrix
             if inverse_noise_matrix is None:
                 if self.verbose:
                     print("Computing label noise estimates from provided noise matrix ...")
-                self.py, self.inverse_noise_matrix = compute_py_inv_noise_matrix(
+                self._state.py, self._state.inverse_noise_matrix = compute_py_inv_noise_matrix(
                     ps=self.ps,
-                    noise_matrix=self.noise_matrix,
+                    noise_matrix=self._state.noise_matrix,
                 )
         if inverse_noise_matrix is not None:
-            self.inverse_noise_matrix = inverse_noise_matrix
+            self._state.inverse_noise_matrix = inverse_noise_matrix
             if noise_matrix is None:
                 if self.verbose:
                     print("Computing label noise estimates from provided inverse noise matrix ...")
-                self.noise_matrix = compute_noise_matrix_from_inverse(
+                self._state.noise_matrix = compute_noise_matrix_from_inverse(
                     ps=self.ps,
-                    inverse_noise_matrix=self.inverse_noise_matrix,
+                    inverse_noise_matrix=self._state.inverse_noise_matrix,
                 )
 
         if noise_matrix is None and inverse_noise_matrix is None:
@@ -981,10 +1162,10 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
                         f"{self.cv_n_folds}-fold cross validation. May take a while ..."
                     )
                 (
-                    self.py,
-                    self.noise_matrix,
-                    self.inverse_noise_matrix,
-                    self.confident_joint,
+                    self._state.py,
+                    self._state.noise_matrix,
+                    self._state.inverse_noise_matrix,
+                    self._state.confident_joint,
                     pred_probs,
                 ) = estimate_py_noise_matrices_and_cv_pred_proba(
                     X=X,
@@ -1001,10 +1182,10 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
                 if self.verbose:
                     print("Computing label noise estimates from provided pred_probs ...")
                 (
-                    self.py,
-                    self.noise_matrix,
-                    self.inverse_noise_matrix,
-                    self.confident_joint,
+                    self._state.py,
+                    self._state.noise_matrix,
+                    self._state.inverse_noise_matrix,
+                    self._state.confident_joint,
                 ) = estimate_py_and_noise_matrices_from_probabilities(
                     labels=labels,
                     pred_probs=pred_probs,
@@ -1029,19 +1210,19 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
                 validation_func=validation_func,
             )
         if self.confident_joint is None:
-            self.confident_joint = compute_confident_joint(
+            self._state.confident_joint = compute_confident_joint(
                 labels=labels,
                 pred_probs=pred_probs,
                 thresholds=thresholds,
             )
 
         if self.num_classes == 2 and self.pulearning is not None:  # pragma: no cover
-            self.noise_matrix[self.pulearning][1 - self.pulearning] = 0
-            self.noise_matrix[1 - self.pulearning][1 - self.pulearning] = 1
-            self.inverse_noise_matrix[1 - self.pulearning][self.pulearning] = 0
-            self.inverse_noise_matrix[self.pulearning][self.pulearning] = 1
-            self.confident_joint[self.pulearning][1 - self.pulearning] = 0
-            self.confident_joint[1 - self.pulearning][1 - self.pulearning] = 1
+            self._state.noise_matrix[self.pulearning][1 - self.pulearning] = 0
+            self._state.noise_matrix[1 - self.pulearning][1 - self.pulearning] = 1
+            self._state.inverse_noise_matrix[1 - self.pulearning][self.pulearning] = 0
+            self._state.inverse_noise_matrix[self.pulearning][self.pulearning] = 1
+            self._state.confident_joint[self.pulearning][1 - self.pulearning] = 0
+            self._state.confident_joint[1 - self.pulearning][1 - self.pulearning] = 1
 
         if "confident_joint" not in self.find_label_issues_kwargs.keys():
             if not self.find_label_issues_kwargs.get("filter_by") == "confident_learning":
@@ -1077,8 +1258,8 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
                     "Overwriting previously identified label issues stored at self.label_issues_df. "
                     "self.get_label_issues() will now return the newly identified label issues. "
                 )
-            self.label_issues_df = label_issues_df
-            self.label_issues_mask = label_issues_df["is_label_issue"]
+            self._state.label_issues_df = label_issues_df
+            self._state.label_issues_mask = label_issues_df["is_label_issue"]
         elif self.verbose:
             print(  # pragma: no cover
                 "Not storing label_issues as attributes since save_space was specified."
