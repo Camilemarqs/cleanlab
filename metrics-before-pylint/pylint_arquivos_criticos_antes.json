@@ -1,0 +1,548 @@
+[
+  {
+    "arquivo": "cleanlab\\multiannotator.py",
+    "convention": 184,
+    "total": 233,
+    "warning": 13,
+    "refactor": 29,
+    "error": 7
+  },
+  {
+    "arquivo": "cleanlab\\count.py",
+    "convention": 114,
+    "total": 136,
+    "warning": 9,
+    "refactor": 13
+  },
+  {
+    "arquivo": "cleanlab\\object_detection\\rank.py",
+    "convention": 97,
+    "total": 131,
+    "warning": 18,
+    "refactor": 16
+  },
+  {
+    "arquivo": "cleanlab\\regression\\learn.py",
+    "convention": 92,
+    "total": 115,
+    "warning": 5,
+    "refactor": 16,
+    "error": 2
+  },
+  {
+    "arquivo": "cleanlab\\object_detection\\summary.py",
+    "convention": 91,
+    "total": 113,
+    "warning": 12,
+    "refactor": 9,
+    "error": 1
+  },
+  {
+    "arquivo": "cleanlab\\filter.py",
+    "convention": 70,
+    "total": 98,
+    "warning": 14,
+    "refactor": 11,
+    "error": 3
+  },
+  {
+    "arquivo": "cleanlab\\classification.py",
+    "convention": 74,
+    "total": 97,
+    "warning": 9,
+    "refactor": 14
+  },
+  {
+    "arquivo": "cleanlab\\outlier.py",
+    "convention": 90,
+    "total": 96,
+    "error": 2,
+    "refactor": 2,
+    "warning": 2
+  },
+  {
+    "arquivo": "cleanlab\\experimental\\label_issues_batched.py",
+    "convention": 71,
+    "total": 88,
+    "refactor": 13,
+    "warning": 4
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\datalab.py",
+    "convention": 68,
+    "total": 71,
+    "warning": 1,
+    "refactor": 2
+  },
+  {
+    "arquivo": "cleanlab\\multilabel_classification\\filter.py",
+    "convention": 57,
+    "total": 70,
+    "warning": 5,
+    "refactor": 8
+  },
+  {
+    "arquivo": "cleanlab\\internal\\neighbor\\knn_graph.py",
+    "convention": 57,
+    "total": 58,
+    "refactor": 1
+  },
+  {
+    "arquivo": "cleanlab\\token_classification\\summary.py",
+    "convention": 46,
+    "total": 58,
+    "warning": 2,
+    "refactor": 8,
+    "error": 2
+  },
+  {
+    "arquivo": "cleanlab\\internal\\util.py",
+    "convention": 33,
+    "total": 56,
+    "refactor": 5,
+    "warning": 12,
+    "error": 6
+  },
+  {
+    "arquivo": "cleanlab\\segmentation\\summary.py",
+    "convention": 42,
+    "total": 56,
+    "refactor": 8,
+    "warning": 4,
+    "error": 2
+  },
+  {
+    "arquivo": "cleanlab\\rank.py",
+    "convention": 40,
+    "total": 50,
+    "warning": 5,
+    "refactor": 5
+  },
+  {
+    "arquivo": "cleanlab\\dataset.py",
+    "convention": 42,
+    "total": 46,
+    "refactor": 4
+  },
+  {
+    "arquivo": "cleanlab\\object_detection\\filter.py",
+    "convention": 35,
+    "total": 44,
+    "refactor": 6,
+    "warning": 2,
+    "error": 1
+  },
+  {
+    "arquivo": "cleanlab\\internal\\multilabel_scorer.py",
+    "convention": 39,
+    "total": 40,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\segmentation\\rank.py",
+    "convention": 30,
+    "total": 39,
+    "refactor": 3,
+    "warning": 6
+  },
+  {
+    "arquivo": "cleanlab\\multilabel_classification\\dataset.py",
+    "convention": 32,
+    "total": 38,
+    "refactor": 2,
+    "warning": 4
+  },
+  {
+    "arquivo": "cleanlab\\token_classification\\__init__.py",
+    "convention": 1,
+    "total": 37,
+    "warning": 1,
+    "refactor": 35
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_finder.py",
+    "convention": 31,
+    "total": 36,
+    "warning": 3,
+    "refactor": 2
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\adapter\\imagelab.py",
+    "convention": 22,
+    "total": 35,
+    "warning": 9,
+    "refactor": 4
+  },
+  {
+    "arquivo": "cleanlab\\token_classification\\rank.py",
+    "convention": 31,
+    "total": 35,
+    "warning": 1,
+    "refactor": 3
+  },
+  {
+    "arquivo": "cleanlab\\multilabel_classification\\rank.py",
+    "convention": 30,
+    "total": 31,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\experimental\\mnist_pytorch.py",
+    "warning": 3,
+    "total": 30,
+    "error": 8,
+    "refactor": 9,
+    "convention": 10
+  },
+  {
+    "arquivo": "cleanlab\\internal\\validation.py",
+    "convention": 17,
+    "total": 30,
+    "refactor": 6,
+    "warning": 6,
+    "error": 1
+  },
+  {
+    "arquivo": "cleanlab\\internal\\multiannotator_utils.py",
+    "convention": 23,
+    "total": 29,
+    "warning": 2,
+    "refactor": 4
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager_factory.py",
+    "convention": 22,
+    "total": 25,
+    "warning": 3
+  },
+  {
+    "arquivo": "cleanlab\\benchmarking\\noise_generation.py",
+    "convention": 20,
+    "total": 24,
+    "refactor": 3,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\noniid.py",
+    "convention": 9,
+    "total": 23,
+    "warning": 10,
+    "refactor": 4
+  },
+  {
+    "arquivo": "cleanlab\\data_valuation.py",
+    "convention": 20,
+    "total": 20
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\data.py",
+    "convention": 12,
+    "total": 20,
+    "error": 2,
+    "warning": 5,
+    "refactor": 1
+  },
+  {
+    "arquivo": "cleanlab\\internal\\latent_algebra.py",
+    "convention": 19,
+    "total": 19
+  },
+  {
+    "arquivo": "cleanlab\\segmentation\\filter.py",
+    "convention": 15,
+    "total": 19,
+    "refactor": 3,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\data_issues.py",
+    "convention": 13,
+    "total": 18,
+    "warning": 1,
+    "refactor": 4
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\underperforming_group.py",
+    "convention": 8,
+    "total": 18,
+    "refactor": 5,
+    "warning": 5
+  },
+  {
+    "arquivo": "cleanlab\\internal\\constants.py",
+    "convention": 17,
+    "total": 17
+  },
+  {
+    "arquivo": "cleanlab\\version.py",
+    "convention": 15,
+    "total": 15
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\display.py",
+    "convention": 15,
+    "total": 15
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\null.py",
+    "convention": 10,
+    "total": 15,
+    "warning": 5
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\outlier.py",
+    "convention": 5,
+    "total": 14,
+    "refactor": 3,
+    "warning": 5,
+    "error": 1
+  },
+  {
+    "arquivo": "cleanlab\\internal\\neighbor\\search.py",
+    "convention": 14,
+    "total": 14
+  },
+  {
+    "arquivo": "cleanlab\\regression\\rank.py",
+    "convention": 14,
+    "total": 14
+  },
+  {
+    "arquivo": "cleanlab\\token_classification\\filter.py",
+    "convention": 14,
+    "total": 14
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\issue_manager.py",
+    "convention": 6,
+    "total": 13,
+    "refactor": 5,
+    "warning": 2
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\regression\\label.py",
+    "convention": 8,
+    "total": 13,
+    "warning": 5
+  },
+  {
+    "arquivo": "cleanlab\\internal\\label_quality_utils.py",
+    "convention": 11,
+    "total": 13,
+    "warning": 1,
+    "error": 1
+  },
+  {
+    "arquivo": "cleanlab\\internal\\token_classification_utils.py",
+    "convention": 12,
+    "total": 13,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\experimental\\coteaching.py",
+    "convention": 3,
+    "total": 12,
+    "warning": 1,
+    "error": 3,
+    "refactor": 5
+  },
+  {
+    "arquivo": "cleanlab\\experimental\\span_classification.py",
+    "convention": 10,
+    "total": 12,
+    "warning": 1,
+    "refactor": 1
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\data_valuation.py",
+    "convention": 5,
+    "total": 11,
+    "warning": 6
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\label.py",
+    "convention": 6,
+    "total": 11,
+    "warning": 4,
+    "refactor": 1
+  },
+  {
+    "arquivo": "cleanlab\\internal\\regression_utils.py",
+    "convention": 4,
+    "total": 11,
+    "warning": 7
+  },
+  {
+    "arquivo": "cleanlab\\internal\\outlier.py",
+    "convention": 8,
+    "total": 10,
+    "error": 2
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\helper_factory.py",
+    "convention": 6,
+    "total": 9,
+    "refactor": 3
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\report.py",
+    "convention": 5,
+    "total": 9,
+    "refactor": 2,
+    "warning": 2
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\duplicate.py",
+    "convention": 6,
+    "total": 9,
+    "warning": 3
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\multilabel\\label.py",
+    "convention": 4,
+    "total": 9,
+    "warning": 5
+  },
+  {
+    "arquivo": "cleanlab\\experimental\\cifar_cnn.py",
+    "convention": 3,
+    "total": 9,
+    "refactor": 4,
+    "error": 2
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\imbalance.py",
+    "convention": 4,
+    "total": 8,
+    "warning": 4
+  },
+  {
+    "arquivo": "cleanlab\\internal\\multilabel_utils.py",
+    "convention": 7,
+    "total": 8,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\spurious_correlation.py",
+    "convention": 6,
+    "total": 7,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\identifier_column.py",
+    "convention": 3,
+    "total": 7,
+    "refactor": 2,
+    "warning": 2
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\serialize.py",
+    "convention": 2,
+    "total": 6,
+    "warning": 4
+  },
+  {
+    "arquivo": "cleanlab\\internal\\object_detection_utils.py",
+    "convention": 2,
+    "total": 6,
+    "refactor": 1,
+    "warning": 3
+  },
+  {
+    "arquivo": "cleanlab\\__init__.py",
+    "convention": 4,
+    "total": 5,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\internal\\neighbor\\metric.py",
+    "convention": 4,
+    "total": 5,
+    "refactor": 1
+  },
+  {
+    "arquivo": "cleanlab\\typing.py",
+    "convention": 4,
+    "total": 4
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\model_outputs.py",
+    "warning": 3,
+    "total": 4,
+    "convention": 1
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\knn_graph_helpers.py",
+    "convention": 4,
+    "total": 4
+  },
+  {
+    "arquivo": "cleanlab\\internal\\segmentation_utils.py",
+    "convention": 3,
+    "total": 4,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\adapter\\constants.py",
+    "convention": 2,
+    "total": 2
+  },
+  {
+    "arquivo": "cleanlab\\multilabel_classification\\__init__.py",
+    "convention": 1,
+    "total": 2,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\object_detection\\__init__.py",
+    "convention": 1,
+    "total": 2,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\segmentation\\__init__.py",
+    "convention": 1,
+    "total": 2,
+    "warning": 1
+  },
+  {
+    "arquivo": "cleanlab\\benchmarking\\__init__.py",
+    "convention": 1,
+    "total": 1
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\task.py",
+    "warning": 1,
+    "total": 1
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\__init__.py",
+    "convention": 1,
+    "total": 1
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\multilabel\\__init__.py",
+    "convention": 1,
+    "total": 1
+  },
+  {
+    "arquivo": "cleanlab\\datalab\\internal\\issue_manager\\regression\\__init__.py",
+    "convention": 1,
+    "total": 1
+  },
+  {
+    "arquivo": "cleanlab\\internal\\numerics.py",
+    "convention": 1,
+    "total": 1
+  },
+  {
+    "arquivo": "cleanlab\\internal\\neighbor\\__init__.py",
+    "convention": 1,
+    "total": 1
+  },
+  {
+    "arquivo": "cleanlab\\regression\\__init__.py",
+    "convention": 1,
+    "total": 1
+  }
+]
