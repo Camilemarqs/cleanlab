@@ -70,6 +70,36 @@ def _validate_pred_probs_multiannotator(
         )
 
 
+def _validate_pred_probs_array(
+    pred_probs: np.ndarray,
+    pred_probs_name: str,
+    expected_ndim: int,
+    dimensionality_hint: str,
+) -> None:
+    """Validate a single pred_probs array used by active learning functions."""
+    if not isinstance(pred_probs, np.ndarray):
+        raise TypeError(f"{pred_probs_name} must be a numpy array.")
+
+    if pred_probs.ndim != expected_ndim:
+        error_message = f"{pred_probs_name} must be a {expected_ndim}d array."
+        if pred_probs.ndim == 2:  # pragma: no cover
+            error_message += dimensionality_hint
+        elif pred_probs.ndim == 3:  # pragma: no cover
+            error_message += dimensionality_hint
+        raise ValueError(error_message)
+
+
+def _validate_pred_probs_matching_classes(
+    pred_probs: np.ndarray,
+    pred_probs_unlabeled: np.ndarray,
+    ensemble: bool,
+) -> None:
+    """Validate that labeled and unlabeled predictions agree on the number of classes."""
+    class_axis = 2 if ensemble else 1
+    if pred_probs.shape[class_axis] != pred_probs_unlabeled.shape[class_axis]:
+        raise ValueError("pred_probs and pred_probs_unlabeled must have the same number of classes")
+
+
 def assert_valid_inputs_multiannotator(
     labels_multiannotator: np.ndarray,
     pred_probs: Optional[np.ndarray] = None,
@@ -144,53 +174,43 @@ def assert_valid_pred_probs(
 
     if ensemble:
         if pred_probs is not None:
-            if not isinstance(pred_probs, np.ndarray):
-                raise TypeError("pred_probs must be a numpy array.")
-            if pred_probs.ndim != 3:
-                error_message = "pred_probs must be a 3d array."
-                if pred_probs.ndim == 2:  # pragma: no cover
-                    error_message += " If you have a 2d pred_probs array (ie. only one predictor), use the non-ensemble version of this function."
-                raise ValueError(error_message)
+            _validate_pred_probs_array(
+                pred_probs,
+                "pred_probs",
+                3,
+                " If you have a 2d pred_probs array (ie. only one predictor), use the non-ensemble version of this function.",
+            )
 
         if pred_probs_unlabeled is not None:
-            if not isinstance(pred_probs_unlabeled, np.ndarray):
-                raise TypeError("pred_probs_unlabeled must be a numpy array.")
-            if pred_probs_unlabeled.ndim != 3:
-                error_message = "pred_probs_unlabeled must be a 3d array."
-                if pred_probs_unlabeled.ndim == 2:  # pragma: no cover
-                    error_message += " If you have a 2d pred_probs_unlabeled array, use the non-ensemble version of this function."
-                raise ValueError(error_message)
+            _validate_pred_probs_array(
+                pred_probs_unlabeled,
+                "pred_probs_unlabeled",
+                3,
+                " If you have a 2d pred_probs_unlabeled array, use the non-ensemble version of this function.",
+            )
 
         if pred_probs is not None and pred_probs_unlabeled is not None:
-            if pred_probs.shape[2] != pred_probs_unlabeled.shape[2]:
-                raise ValueError(
-                    "pred_probs and pred_probs_unlabeled must have the same number of classes"
-                )
+            _validate_pred_probs_matching_classes(pred_probs, pred_probs_unlabeled, ensemble=True)
 
     else:
         if pred_probs is not None:
-            if not isinstance(pred_probs, np.ndarray):
-                raise TypeError("pred_probs must be a numpy array.")
-            if pred_probs.ndim != 2:
-                error_message = "pred_probs must be a 2d array."
-                if pred_probs.ndim == 3:  # pragma: no cover
-                    error_message += " If you have a 3d pred_probs array, use the ensemble version of this function."
-                raise ValueError(error_message)
+            _validate_pred_probs_array(
+                pred_probs,
+                "pred_probs",
+                2,
+                " If you have a 3d pred_probs array, use the ensemble version of this function.",
+            )
 
         if pred_probs_unlabeled is not None:
-            if not isinstance(pred_probs_unlabeled, np.ndarray):
-                raise TypeError("pred_probs_unlabeled must be a numpy array.")
-            if pred_probs_unlabeled.ndim != 2:
-                error_message = "pred_probs_unlabeled must be a 2d array."
-                if pred_probs_unlabeled.ndim == 3:  # pragma: no cover
-                    error_message += " If you have a 3d pred_probs_unlabeled array, use the non-ensemble version of this function."
-                raise ValueError(error_message)
+            _validate_pred_probs_array(
+                pred_probs_unlabeled,
+                "pred_probs_unlabeled",
+                2,
+                " If you have a 3d pred_probs_unlabeled array, use the ensemble version of this function.",
+            )
 
         if pred_probs is not None and pred_probs_unlabeled is not None:
-            if pred_probs.shape[1] != pred_probs_unlabeled.shape[1]:
-                raise ValueError(
-                    "pred_probs and pred_probs_unlabeled must have the same number of classes"
-                )
+            _validate_pred_probs_matching_classes(pred_probs, pred_probs_unlabeled, ensemble=False)
 
 
 def format_multiannotator_labels(labels: LabelLike) -> Tuple[pd.DataFrame, dict]:

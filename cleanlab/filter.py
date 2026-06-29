@@ -197,93 +197,49 @@ def _find_label_issues_multiclass(
         )
         # Find label issues O(nlogn) solution (mapped to boolean mask later in the method)
         cl_error_indices = np.argsort(scores)[:num_errors]
-        # The following is the O(n) fastest solution (check for one-off errors), but the problem is if lots of the scores are identical you will overcount,
-        # you can end up returning more or less and they aren't ranked in the boolean form so there's no way to drop the highest scores randomly
-        #     boundary = np.partition(scores, num_errors)[num_errors]  # O(n) solution
-        #     label_issues_mask = scores <= boundary
 
     if filter_by in ["prune_by_noise_rate", "prune_by_class", "both"]:
-        # Create `prune_count_matrix` with the number of examples to remove in each class and
-        # leave at least min_examples_per_class examples per class.
-        # `prune_count_matrix` is transposed relative to the confident_joint.
-        prune_count_matrix = _keep_at_least_n_per_class(
-            prune_count_matrix=confident_joint.T,
-            n=min_examples_per_class,
+        args = _prepare_multiclass_pruning_args(
+            confident_joint=confident_joint,
+            labels=labels,
+            pred_probs=pred_probs,
             frac_noise=frac_noise,
+            num_to_remove_per_class=num_to_remove_per_class,
+            min_examples_per_class=min_examples_per_class,
+            n_jobs=n_jobs,
+            K=K,
+            label_counts=label_counts,
+            os_name=os_name,
         )
-
-        if num_to_remove_per_class is not None:
-            # Estimate joint probability distribution over label issues
-            psy = prune_count_matrix / np.sum(prune_count_matrix, axis=1)
-            noise_per_s = psy.sum(axis=1) - psy.diagonal()
-            # Calibrate labels.t. noise rates sum to num_to_remove_per_class
-            tmp = (psy.T * num_to_remove_per_class / noise_per_s).T
-            np.fill_diagonal(tmp, label_counts - num_to_remove_per_class)
-            prune_count_matrix = round_preserving_row_totals(tmp)
-
-        # Prepare multiprocessing shared data
-        # On Linux with Python <3.14, multiprocessing is started with fork,
-        # so data can be shared with global variables + COW
-        # On Window/macOS, processes are started with spawn,
-        # so data will need to be pickled to the subprocesses through input args
-        # In Python 3.14+, global variable sharing is no longer reliable even on Linux
-        chunksize = max(1, K // n_jobs)
-        use_global_vars = n_jobs == 1 or (os_name == "Linux" and sys.version_info < (3, 14))
-        if use_global_vars:
-            global pred_probs_by_class, prune_count_matrix_cols
-            pred_probs_by_class = {k: pred_probs[labels == k] for k in range(K)}
-            prune_count_matrix_cols = {k: prune_count_matrix[:, k] for k in range(K)}
-            args = [[k, min_examples_per_class, None] for k in range(K)]
-        else:
-            args = [
-                [k, min_examples_per_class, [pred_probs[labels == k], prune_count_matrix[:, k]]]
-                for k in range(K)
-            ]
 
     # Perform Pruning with threshold probabilities from BFPRT algorithm in O(n)
     # Operations are parallelized across all CPU processes
     if filter_by == "prune_by_class" or filter_by == "both":
-        if n_jobs > 1:
-            with multiprocessing.Pool(n_jobs) as p:
-                if verbose:  # pragma: no cover
-                    print("Parallel processing label issues by class.")
-                sys.stdout.flush()
-                if big_dataset and tqdm_exists:
-                    label_issues_masks_per_class = list(
-                        tqdm.tqdm(p.imap(_prune_by_class, args, chunksize=chunksize), total=K)
-                    )
-                else:
-                    label_issues_masks_per_class = p.map(_prune_by_class, args, chunksize=chunksize)
-        else:
-            label_issues_masks_per_class = [_prune_by_class(arg) for arg in args]
-
-        label_issues_mask = np.zeros(len(labels), dtype=bool)
-        for k, mask in enumerate(label_issues_masks_per_class):
-            if len(mask) > 1:
-                label_issues_mask[labels == k] = mask
+        label_issues_mask = _run_multiclass_pruning(
+            args=args,
+            n_jobs=n_jobs,
+            verbose=verbose,
+            big_dataset=big_dataset,
+            K=K,
+            pruner=_prune_by_class,
+            labels=labels,
+            progress_message="Parallel processing label issues by class.",
+        )
 
     if filter_by == "both":
         label_issues_mask_by_class = label_issues_mask
 
     if filter_by == "prune_by_noise_rate" or filter_by == "both":
-        if n_jobs > 1:
-            with multiprocessing.Pool(n_jobs) as p:
-                if verbose:  # pragma: no cover
-                    print("Parallel processing label issues by noise rate.")
-                sys.stdout.flush()
-                if big_dataset and tqdm_exists:
-                    label_issues_masks_per_class = list(
-                        tqdm.tqdm(p.imap(_prune_by_count, args, chunksize=chunksize), total=K)
-                    )
-                else:
-                    label_issues_masks_per_class = p.map(_prune_by_count, args, chunksize=chunksize)
-        else:
-            label_issues_masks_per_class = [_prune_by_count(arg) for arg in args]
-
-        label_issues_mask = np.zeros(len(labels), dtype=bool)
-        for k, mask in enumerate(label_issues_masks_per_class):
-            if len(mask) > 1:
-                label_issues_mask[labels == k] = mask
+        label_issues_mask = _run_multiclass_pruning(
+            args=args,
+            n_jobs=n_jobs,
+            verbose=verbose,
+            big_dataset=big_dataset,
+            K=K,
+            pruner=_prune_by_count,
+            labels=labels,
+            progress_message="Parallel processing label issues by noise rate.",
+        )
 
     if filter_by == "both":
         label_issues_mask = label_issues_mask & label_issues_mask_by_class
@@ -313,6 +269,78 @@ def _find_label_issues_multiclass(
             rank_by_kwargs=rank_by_kwargs,
         )
         return er
+    return label_issues_mask
+
+
+def _prepare_multiclass_pruning_args(
+    *,
+    confident_joint: np.ndarray,
+    labels: np.ndarray,
+    pred_probs: np.ndarray,
+    frac_noise: float,
+    num_to_remove_per_class: Optional[List[int]],
+    min_examples_per_class,
+    n_jobs: int,
+    K: int,
+    label_counts: np.ndarray,
+    os_name: str,
+) -> list:
+    # Create the prune-count matrix and choose the multiprocessing payload shape.
+    prune_count_matrix = _keep_at_least_n_per_class(
+        prune_count_matrix=confident_joint.T,
+        n=min_examples_per_class,
+        frac_noise=frac_noise,
+    )
+
+    if num_to_remove_per_class is not None:
+        psy = prune_count_matrix / np.sum(prune_count_matrix, axis=1)
+        noise_per_s = psy.sum(axis=1) - psy.diagonal()
+        tmp = (psy.T * num_to_remove_per_class / noise_per_s).T
+        np.fill_diagonal(tmp, label_counts - num_to_remove_per_class)
+        prune_count_matrix = round_preserving_row_totals(tmp)
+
+    use_global_vars = n_jobs == 1 or (os_name == "Linux" and sys.version_info < (3, 14))
+    if use_global_vars:
+        global pred_probs_by_class, prune_count_matrix_cols
+        pred_probs_by_class = {k: pred_probs[labels == k] for k in range(K)}
+        prune_count_matrix_cols = {k: prune_count_matrix[:, k] for k in range(K)}
+        return [[k, min_examples_per_class, None] for k in range(K)]
+    return [
+        [k, min_examples_per_class, [pred_probs[labels == k], prune_count_matrix[:, k]]]
+        for k in range(K)
+    ]
+
+
+def _run_multiclass_pruning(
+    *,
+    args: list,
+    n_jobs: int,
+    verbose: bool,
+    big_dataset: bool,
+    K: int,
+    pruner,
+    labels: np.ndarray,
+    progress_message: str,
+) -> np.ndarray:
+    if n_jobs > 1:
+        chunksize = max(1, K // n_jobs)
+        with multiprocessing.Pool(n_jobs) as p:
+            if verbose:  # pragma: no cover
+                print(progress_message)
+            sys.stdout.flush()
+            if big_dataset and tqdm_exists:
+                label_issues_masks_per_class = list(
+                    tqdm.tqdm(p.imap(pruner, args, chunksize=chunksize), total=K)
+                )
+            else:
+                label_issues_masks_per_class = p.map(pruner, args, chunksize=chunksize)
+    else:
+        label_issues_masks_per_class = [pruner(arg) for arg in args]
+
+    label_issues_mask = np.zeros(len(labels), dtype=bool)
+    for k, mask in enumerate(label_issues_masks_per_class):
+        if len(mask) > 1:
+            label_issues_mask[labels == k] = mask
     return label_issues_mask
 
 
