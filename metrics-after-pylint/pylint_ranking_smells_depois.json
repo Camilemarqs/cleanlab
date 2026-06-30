@@ -1,0 +1,86 @@
+[
+  {
+    "simbolo": "too-many-arguments",
+    "ocorrencias": 83
+  },
+  {
+    "simbolo": "too-many-locals",
+    "ocorrencias": 52
+  },
+  {
+    "simbolo": "too-many-positional-arguments",
+    "ocorrencias": 34
+  },
+  {
+    "simbolo": "no-else-return",
+    "ocorrencias": 28
+  },
+  {
+    "simbolo": "duplicate-code",
+    "ocorrencias": 17
+  },
+  {
+    "simbolo": "cyclic-import",
+    "ocorrencias": 16
+  },
+  {
+    "simbolo": "no-else-raise",
+    "ocorrencias": 10
+  },
+  {
+    "simbolo": "too-few-public-methods",
+    "ocorrencias": 6
+  },
+  {
+    "simbolo": "too-many-instance-attributes",
+    "ocorrencias": 4
+  },
+  {
+    "simbolo": "use-a-generator",
+    "ocorrencias": 3
+  },
+  {
+    "simbolo": "consider-using-from-import",
+    "ocorrencias": 3
+  },
+  {
+    "simbolo": "consider-using-in",
+    "ocorrencias": 2
+  },
+  {
+    "simbolo": "consider-using-generator",
+    "ocorrencias": 2
+  },
+  {
+    "simbolo": "inconsistent-return-statements",
+    "ocorrencias": 2
+  },
+  {
+    "simbolo": "super-with-arguments",
+    "ocorrencias": 2
+  },
+  {
+    "simbolo": "useless-return",
+    "ocorrencias": 2
+  },
+  {
+    "simbolo": "consider-using-with",
+    "ocorrencias": 2
+  },
+  {
+    "simbolo": "too-many-public-methods",
+    "ocorrencias": 1
+  },
+  {
+    "simbolo": "redefined-argument-from-local",
+    "ocorrencias": 1
+  },
+  {
+    "simbolo": "simplifiable-if-expression",
+    "ocorrencias": 1
+  },
+  {
+    "simbolo": "use-dict-literal",
+    "ocorrencias": 1
+  }
+]

@@ -1,0 +1,366 @@
+{
+  "cleanlab\\classification.py": {
+    "mi": 23.42556349632625,
+    "rank": "A"
+  },
+  "cleanlab\\count.py": {
+    "mi": 40.587631110698425,
+    "rank": "A"
+  },
+  "cleanlab\\dataset.py": {
+    "mi": 56.528916846486716,
+    "rank": "A"
+  },
+  "cleanlab\\data_valuation.py": {
+    "mi": 49.97106042718887,
+    "rank": "A"
+  },
+  "cleanlab\\filter.py": {
+    "mi": 41.85511778757997,
+    "rank": "A"
+  },
+  "cleanlab\\multiannotator.py": {
+    "mi": 29.39695494438119,
+    "rank": "A"
+  },
+  "cleanlab\\outlier.py": {
+    "mi": 51.35334886078357,
+    "rank": "A"
+  },
+  "cleanlab\\rank.py": {
+    "mi": 54.978316872608964,
+    "rank": "A"
+  },
+  "cleanlab\\typing.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\version.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\__init__.py": {
+    "mi": 56.97398328213569,
+    "rank": "A"
+  },
+  "cleanlab\\benchmarking\\noise_generation.py": {
+    "mi": 52.21798106217721,
+    "rank": "A"
+  },
+  "cleanlab\\benchmarking\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\datalab.py": {
+    "mi": 42.953585741963224,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\data.py": {
+    "mi": 51.04763159757479,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\data_issues.py": {
+    "mi": 54.99395211630941,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\display.py": {
+    "mi": 56.32712498192925,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\helper_factory.py": {
+    "mi": 85.0736164507235,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_finder.py": {
+    "mi": 47.226767313002725,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager_factory.py": {
+    "mi": 74.85276339257129,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\model_outputs.py": {
+    "mi": 74.10992521539139,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\report.py": {
+    "mi": 68.7749223768719,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\serialize.py": {
+    "mi": 66.95150592433485,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\spurious_correlation.py": {
+    "mi": 74.7066995183289,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\task.py": {
+    "mi": 37.92439364042477,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\adapter\\constants.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\adapter\\imagelab.py": {
+    "mi": 46.4809541874175,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\adapter\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\data_valuation.py": {
+    "mi": 70.1503441458316,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\duplicate.py": {
+    "mi": 61.54446413153898,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\identifier_column.py": {
+    "mi": 69.57153803697521,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\imbalance.py": {
+    "mi": 72.97137709158223,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\issue_manager.py": {
+    "mi": 55.91431829726439,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\knn_graph_helpers.py": {
+    "mi": 62.53825193618504,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\label.py": {
+    "mi": 60.67957086922423,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\noniid.py": {
+    "mi": 51.48196116350694,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\null.py": {
+    "mi": 71.5917580739359,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\outlier.py": {
+    "mi": 43.215910576347106,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\underperforming_group.py": {
+    "mi": 49.500979565922684,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\multilabel\\label.py": {
+    "mi": 75.99034277911103,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\multilabel\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\regression\\label.py": {
+    "mi": 67.84125298337564,
+    "rank": "A"
+  },
+  "cleanlab\\datalab\\internal\\issue_manager\\regression\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\experimental\\cifar_cnn.py": {
+    "mi": 87.87537522423187,
+    "rank": "A"
+  },
+  "cleanlab\\experimental\\coteaching.py": {
+    "mi": 64.05353276945083,
+    "rank": "A"
+  },
+  "cleanlab\\experimental\\label_issues_batched.py": {
+    "mi": 41.841763707615215,
+    "rank": "A"
+  },
+  "cleanlab\\experimental\\mnist_pytorch.py": {
+    "mi": 42.56522557278975,
+    "rank": "A"
+  },
+  "cleanlab\\experimental\\span_classification.py": {
+    "mi": 91.8702665703168,
+    "rank": "A"
+  },
+  "cleanlab\\experimental\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\constants.py": {
+    "mi": 89.37253771495078,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\label_quality_utils.py": {
+    "mi": 66.20568681003408,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\latent_algebra.py": {
+    "mi": 38.548404537376385,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\multiannotator_utils.py": {
+    "mi": 37.58953510235845,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\multilabel_scorer.py": {
+    "mi": 37.11110194408526,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\multilabel_utils.py": {
+    "mi": 70.26808034146632,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\numerics.py": {
+    "mi": 78.05679470157716,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\object_detection_utils.py": {
+    "mi": 60.49857849910725,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\outlier.py": {
+    "mi": 52.85599496049018,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\regression_utils.py": {
+    "mi": 76.30966462291735,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\segmentation_utils.py": {
+    "mi": 80.65380570502488,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\token_classification_utils.py": {
+    "mi": 32.17714343676214,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\util.py": {
+    "mi": 43.84431833330399,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\validation.py": {
+    "mi": 53.21967075437148,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\neighbor\\knn_graph.py": {
+    "mi": 27.417775736604266,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\neighbor\\metric.py": {
+    "mi": 44.35750523451715,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\neighbor\\search.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\internal\\neighbor\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\models\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\multilabel_classification\\dataset.py": {
+    "mi": 63.59190219389619,
+    "rank": "A"
+  },
+  "cleanlab\\multilabel_classification\\filter.py": {
+    "mi": 71.17302539236927,
+    "rank": "A"
+  },
+  "cleanlab\\multilabel_classification\\rank.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\multilabel_classification\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\object_detection\\filter.py": {
+    "mi": 51.7006315092901,
+    "rank": "A"
+  },
+  "cleanlab\\object_detection\\rank.py": {
+    "mi": 37.873581750431875,
+    "rank": "A"
+  },
+  "cleanlab\\object_detection\\summary.py": {
+    "mi": 43.35744925252283,
+    "rank": "A"
+  },
+  "cleanlab\\object_detection\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\regression\\learn.py": {
+    "mi": 38.155553089367146,
+    "rank": "A"
+  },
+  "cleanlab\\regression\\rank.py": {
+    "mi": 68.35092992951105,
+    "rank": "A"
+  },
+  "cleanlab\\regression\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\segmentation\\filter.py": {
+    "mi": 62.58236704405497,
+    "rank": "A"
+  },
+  "cleanlab\\segmentation\\rank.py": {
+    "mi": 64.48257699863316,
+    "rank": "A"
+  },
+  "cleanlab\\segmentation\\summary.py": {
+    "mi": 56.60492699542747,
+    "rank": "A"
+  },
+  "cleanlab\\segmentation\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\token_classification\\filter.py": {
+    "mi": 100.0,
+    "rank": "A"
+  },
+  "cleanlab\\token_classification\\rank.py": {
+    "mi": 48.368432768841096,
+    "rank": "A"
+  },
+  "cleanlab\\token_classification\\summary.py": {
+    "mi": 57.88512431552149,
+    "rank": "A"
+  },
+  "cleanlab\\token_classification\\__init__.py": {
+    "mi": 100.0,
+    "rank": "A"
+  }
+}
